@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
 import sys
 from PyQt4 import QtCore, QtGui
 def validate(value):
@@ -129,7 +130,7 @@ def money_f(alco_dictio, info_dictio):
 #################################################
 def alco_p(alco_mass, info_dictio, mass, money):
 	if alco_mass == 0:
-		message_box(0, 0, 0, 0)
+		message_box(0, 0, 0, 0, 0)
 		return
 	promile = 0.0
 	drink_time = 0.25
@@ -155,19 +156,20 @@ def alco_p(alco_mass, info_dictio, mass, money):
 		if promile < 0:
 			promile = 0
 	full_time-=time
-	message_box(max_promile, money, full_time, alco_mass)
+	message_box(max_promile, money, full_time, alco_mass, time)
 
 #################################################
-def message_box(max_promile, money, full_time, alco_mass):
+def message_box(max_promile, money, full_time, alco_mass, time):
 	workin_day = (160*money/3100)/24
 	message = QtGui.QMessageBox()
-	detailed_string = 'You drunk '  + str("%.2f" % round(alco_mass,2)) + ' g of clean alcohol.\n'
-	detailed_string += 'You will be sober in  ' + str(full_time) + ' hours after finished drinking.\n' 
-	detailed_string += 'Your maximum alcohol concentration was about ' + str("%.2f" % round(max_promile,2))
-	detailed_string += '.\n You spent about ' + str(money) + 'PLN, that for average person in Poland equals about ' 
-	detailed_string += str("%.2f" % round(workin_day,2)) + ' working days.'
-	message.setText(detailed_string)
-	message.setDetailedText(detailed_string)
+	detailed_string = 'Spożyłeś '  + str("%.2f" % round(alco_mass,2)) + ' g czystego alkoholu.\n'
+	detailed_string += 'Będziesz trzeźwieć ' + str(full_time) + ' godzin od zakończenia picia.\n' 
+	detailed_string += 'Najwyższą zawartość alkoholu we krwi miałeś w ' +str(time) + ' h od rozpoczęcia picia i wynosiła ona ' 
+	detailed_string += str("%.2f" % round(max_promile,2)) + ' promili .\n'
+	detailed_string += 'Na picie wydałeś ok. ' + str(money) + 'PLN, przeciętnie obywatel Polski potrzebuje na to pracować ok. ' 
+	detailed_string += str("%.2f" % round(workin_day,2)) + ' dni.'
+	detailed_string1 = detailed_string.decode('utf8')
+	message.setText(detailed_string1)
 	message.exec_()
 #################################################
 def drink_t(info_dictio):
