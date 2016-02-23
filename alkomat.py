@@ -5,7 +5,6 @@ import getopt
 from PyQt4 import QtCore, QtGui
 from alkomat_ui import Ui_Dialog
 
-
 def usage():
 	print './alkomat.py [options]\nOptions:\n-h\t-\thelp.\n-v\t-\tversion\n\n'
 	print 'This is main file of Alkomat program.\nYou can run it from here but it is recommended to run it via alkomat.sh.\n'
@@ -40,7 +39,6 @@ class MyDialog(QtGui.QMainWindow):
 		self.ui.Wodka_ilosc.setText(wodka_li)
 		self.ui.Inne_ilosc.setText(inne_li)
 		alko.promile(self.ui)
-
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
