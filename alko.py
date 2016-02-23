@@ -68,14 +68,13 @@ def promile_alco(ui):
 def promile_man(info_dictio, alco_dictio):
 	mass=fluid_mass(0.7,0.9, info_dictio)
 	alco_mass = alco_m(alco_dictio)
-	alco_time = alco_t(alco_mass, info_dictio) #ile alko wchlania sie na 1 min
-	dealco_time = dealco_t(alco_mass)
+	alco_p(alco_mass, info_dictio, mass)
 
 #################################################
 def promile_woman(info_dictio, alco_dictio):
 	mass=fluid_mass(0.6,0.85, info_dictio)
 	alco_mass = alco_m(alco_dictio)
-	alco_time = alco_t(alco_mass, info_dictio)
+	alco_p(alco_mass, info_dictio, mass)
 
 
 #################################################
@@ -98,22 +97,28 @@ def alco_m(alco_dictio):
 	return alco
 
 #################################################
-def alco_t(alco_mass, info_dictio):
-	dalco_dtime_drink = alco_mass/(60*drink_t(info_dictio))
-	return dalco_dtime_drink
-
-#################################################
-def dealco_t(alco_mass):
-	time = 0.5
-	mass = alco_mass
-	while mass > 0:
-		if mass > 5.8:
-			time +=0.25
-			mass = mass - 0.25*(10*mass)/(4.2+mass)
+def alco_p(alco_mass, info_dictio, mass):
+	promile = 0.0
+	drink_time = 0.25
+	full_time = 0.25
+	time = drink_t(info_dictio)
+	dalco_dtime_drink = alco_mass/(4*time)
+	alco = dalco_dtime_drink
+	promile = alco/mass
+	while promile>0:
+		if drink_time < time:
+			drink_time += 0.25
+			alco += dalco_dtime_drink
+		if alco > 5.8:
+			alco = alco - 0.25*(10*alco)/(4.2+alco)
 		else:
-			time +=0.5
-			mass = 0
-	return time
+			alco -= 0.25
+		full_time += 0.25
+		promile = alco/mass
+		if drink_time == time:
+			max_promile = promile
+		if promile < 0:
+			promile = 0
 
 #################################################
 def drink_t(info_dictio):
