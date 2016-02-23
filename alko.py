@@ -5,8 +5,8 @@ def validate(value):
 	if len(value)==0:
 		value=0
 		return QtCore.QString.number(value)
-	int_value=int(value)
-	if int_value<0:
+	float_value=float(value)
+	if float_value<0:
 		value=0
 		return QtCore.QString.number(value)
 	else:
@@ -116,9 +116,13 @@ def money_f(alco_dictio, info_dictio):
 
 #################################################
 def alco_p(alco_mass, info_dictio, mass, money):
+	if alco_mass == 0:
+		message_box(0, 0, 0, 0)
+		return
 	promile = 0.0
 	drink_time = 0.25
 	full_time = 0.25
+	max_promile = 0.0
 	time = drink_t(info_dictio)
 	dalco_dtime_drink = alco_mass/(4*time)
 	alco = dalco_dtime_drink
@@ -134,11 +138,24 @@ def alco_p(alco_mass, info_dictio, mass, money):
 		full_time += 0.25
 		promile = alco/mass
 		if drink_time == time:
+			drink_time +=0.5	
 			max_promile = promile
 		if promile < 0:
 			promile = 0
 	
+	message_box(max_promile, money, full_time, alco_mass)
+
+#################################################
+def message_box(max_promile, money, full_time, alco_mass):
+	workin_day = 160*money/3100
 	message = QtGui.QMessageBox()
+	detailed_string = 'You drunk '  + str("%.2f" % round(alco_mass,2)) + ' g of clean alcohol.\n'
+	detailed_string += 'You will be soberb for  ' + str(full_time) + ' hours.\n' 
+	detailed_string += 'Your maximum alcohol concentration was about ' + str("%.2f" % round(max_promile,2))
+	detailed_string += '.\n You spent about ' + str(money) + 'PLN, that for average person in Poland equals about ' 
+	detailed_string += str("%.2f" % round(workin_day,2)) + ' working days.'
+	message.setText(detailed_string)
+	message.setDetailedText(detailed_string)
 	message.exec_()
 #################################################
 def drink_t(info_dictio):
