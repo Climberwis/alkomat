@@ -16,6 +16,10 @@ def validate(value):
 def promile(ui):
 	info_dictio=promile_info(ui)
 	alco_dictio=promile_alco(ui)
+	if info_dictio['sex'] == 0:
+		promile_man(info_dictio, alco_dictio)
+	else:
+		promile_woman(info_dictio, alco_dictio)
 
 #################################################
 def promile_info(ui):
@@ -59,3 +63,22 @@ def promile_alco(ui):
 	alco_dictio = {'beer_q': beer_q, 'beer_a': beer_a, 'wine_q': wine_q, 'wine_a': wine_a, 'wodka_q': wodka_q, 'wodka_a': wodka_a, 
 'other_q': other_q, 'other_a': other_a}
 	return alco_dictio
+
+#################################################
+def promile_man(info_dictio, alco_dictio):
+	mass=fluid_mass(0.7,0.9, info_dictio)
+	print mass
+
+#################################################
+def promile_woman(info_dictio, alco_dictio):
+	mass=fluid_mass(0.6,0.85, info_dictio)
+	print mass
+
+#################################################
+def fluid_mass(x,y, info_dictio):
+	ideal=(info_dictio['height']-100)*y
+	if info_dictio['height'] > ideal:
+		fluid = x*ideal + 0.2*(info_dictio['weight'] - ideal)
+	else:
+		fluid = x*ideal - 0.2*(info_dictio['weight'] - ideal)
+	return fluid
