@@ -68,11 +68,14 @@ def promile_alco(ui):
 def promile_man(info_dictio, alco_dictio):
 	mass=fluid_mass(0.7,0.9, info_dictio)
 	alco_mass = alco_m(alco_dictio)
+	alco_time = alco_t(alco_mass, info_dictio) #ile alko wchlania sie na 1 min
 
 #################################################
 def promile_woman(info_dictio, alco_dictio):
 	mass=fluid_mass(0.6,0.85, info_dictio)
 	alco_mass = alco_m(alco_dictio)
+	alco_time = alco_t(alco_mass, info_dictio)
+	
 
 #################################################
 def fluid_mass(x,y, info_dictio):
@@ -92,3 +95,14 @@ def alco_m(alco_dictio):
 	alco = beer_alco + wine_alco + wodka_alco + other_alco
 	alco *= 0.789
 	return alco
+
+#################################################
+def alco_t(alco_mass, info_dictio):
+	dalco_dtime_drink = alco_mass/(60*drink_t(info_dictio))
+	print dalco_dtime_drink
+	return dalco_dtime_drink
+
+#################################################
+def drink_t(info_dictio):
+	drink_time = info_dictio['drinking_time'] + 0.5 + info_dictio['stomach']
+	return drink_time
