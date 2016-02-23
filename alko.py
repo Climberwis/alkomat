@@ -37,21 +37,33 @@ def promile_info(ui):
 def promile_alco(ui):
 	try:	
 		beer_a = float(ui.piwo_procent.text())
+		if beer_a > 100:
+			beer_a = 100
+			ui.piwo_procent.setText("100")
 	except:
 		beer_a = 0.0
 		ui.piwo_procent.setText("0")
 	try:
 		wine_a = float(ui.wino_procent.text())
+		if wine_a > 100:
+			wine_a = 100
+			ui.wino_procent.setText("100")
 	except:
 		wine_a = 0.0
 		ui.wino_procent.setText("0")
 	try:		
 		wodka_a = float(ui.wodka_procent.text())
+		if wodka_a > 100:
+			wodka_a = 100
+			ui.wodka_procent.setText("100")
 	except:
 		wodka_a = 0.0
 		ui.wodka_procent.setText("0")
 	try:
 		other_a = float(ui.inne_procent.text())
+		if other_a > 100:
+			other_a = 100
+			ui.inne_procent.setText("100")
 	except:
 		other_a = 0.0
 		ui.inne_procent.setText("0")
@@ -131,10 +143,10 @@ def alco_p(alco_mass, info_dictio, mass, money):
 		if drink_time < time:
 			drink_time += 0.25
 			alco += dalco_dtime_drink
-		if alco > 5.8:
+		if alco >= 5.8:
 			alco = alco - 0.25*(10*alco)/(4.2+alco)
 		else:
-			alco -= 0.25
+			alco -= 1.5
 		full_time += 0.25
 		promile = alco/mass
 		if drink_time == time:
@@ -142,15 +154,15 @@ def alco_p(alco_mass, info_dictio, mass, money):
 			max_promile = promile
 		if promile < 0:
 			promile = 0
-	
+	full_time-=time
 	message_box(max_promile, money, full_time, alco_mass)
 
 #################################################
 def message_box(max_promile, money, full_time, alco_mass):
-	workin_day = 160*money/3100
+	workin_day = (160*money/3100)/24
 	message = QtGui.QMessageBox()
 	detailed_string = 'You drunk '  + str("%.2f" % round(alco_mass,2)) + ' g of clean alcohol.\n'
-	detailed_string += 'You will be soberb for  ' + str(full_time) + ' hours.\n' 
+	detailed_string += 'You will be sober in  ' + str(full_time) + ' hours after finished drinking.\n' 
 	detailed_string += 'Your maximum alcohol concentration was about ' + str("%.2f" % round(max_promile,2))
 	detailed_string += '.\n You spent about ' + str(money) + 'PLN, that for average person in Poland equals about ' 
 	detailed_string += str("%.2f" % round(workin_day,2)) + ' working days.'
