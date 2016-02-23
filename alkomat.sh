@@ -20,13 +20,14 @@ exit 1
 esac
 done
 
+dir="$(dirname $0)"
 
 i=0
-cat ./alkomat.py > /dev/null 2>&1
+cat $dir/alkomat.py > /dev/null 2>&1
 czy_alkompy=$?
-cat ./alkomat_ui.py > /dev/null 2>&1
+cat $dir/alkomat_ui.py > /dev/null 2>&1
 czy_alkouipy=$?
-cat ./alko.py > /dev/null 2>&1
+cat $dir/alko.py > /dev/null 2>&1
 czy_alkopy=$?
 
 if [[ ($czy_alkompy != 0) || ($czy_alkouipy != 0) || ($czy_alkopy != 0) ]]; then
@@ -38,9 +39,9 @@ printf "Missing files, would you like to download them now? (y,n):\n"
 		fi
 		if [[ $a == 'y' || $a == 'Y' ]]; then
 			git clone git://github.com/Climberwis/alkomat 2>&1
-			cp alkomat/alkomat.py ./ 2>&1
-			cp alkomat/alkomat_ui.py ./ 2>&1
-			cp alkomat/alko.py ./ 2>&1
+			mv alkomat/alkomat.py $dir/ 2>&1
+			mv alkomat/alkomat_ui.py $dir/ 2>&1
+			mv alkomat/alko.py $dir/ 2>&1
 			((i++))
 		elif [[ $a == 'n' || $a == 'N' ]]; then
 			exit 0
@@ -48,5 +49,5 @@ printf "Missing files, would you like to download them now? (y,n):\n"
 		fi
 	done
 fi
-chmod +x alkomat.py
-./alkomat.py
+chmod +x $dir/alkomat.py
+$dir/alkomat.py
