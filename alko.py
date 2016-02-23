@@ -113,6 +113,7 @@ def dealco_t(alco_mass):
 		else:
 			time +=0.5
 			mass = 0
+	return time
 
 #################################################
 def drink_t(info_dictio):
