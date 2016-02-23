@@ -1,8 +1,27 @@
 #!/usr/bin/python
 import sys
 import alko
+import getopt
 from PyQt4 import QtCore, QtGui
 from alkomat_ui import Ui_Dialog
+
+
+def usage():
+	print './alkomat.py [options]\nOptions:\n-h\t-\thelp.\n-v\t-\tversion\n\n'
+	print 'This is main file of Alkomat program.\nYou can run it from here but it is recommended to run it via alkomat.sh.\n'
+
+try:
+	opts, args = getopt.getopt(sys.argv[1:], "hv")
+except getopt.GetoptError:          
+	print 'Unknown command!'                     
+        sys.exit(2)
+for opt, arg in opts:
+	if opt in ("-h"):
+		usage()
+		sys.exit()
+	elif opt in ("-v"):
+		print 'Alkomat v 1.0.0'
+		sys.exit()
 
 class MyDialog(QtGui.QMainWindow):
 	def __init__(self, parent=None):
