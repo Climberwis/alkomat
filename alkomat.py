@@ -4,8 +4,6 @@ import alko
 from PyQt4 import QtCore, QtGui
 from alkomat_ui import Ui_Dialog
 
-licz=0;
-
 class MyDialog(QtGui.QMainWindow):
 	def __init__(self, parent=None):
 		QtGui.QWidget.__init__(self, parent)
