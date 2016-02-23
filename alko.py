@@ -68,13 +68,15 @@ def promile_alco(ui):
 def promile_man(info_dictio, alco_dictio):
 	mass=fluid_mass(0.7,0.9, info_dictio)
 	alco_mass = alco_m(alco_dictio)
-	alco_p(alco_mass, info_dictio, mass)
+	money = money_f(alco_dictio, info_dictio)
+	alco_p(alco_mass, info_dictio, mass, money)
 
 #################################################
 def promile_woman(info_dictio, alco_dictio):
 	mass=fluid_mass(0.6,0.85, info_dictio)
 	alco_mass = alco_m(alco_dictio)
-	alco_p(alco_mass, info_dictio, mass)
+	money = money_f(alco_dictio, info_dictio)
+	alco_p(alco_mass, info_dictio, mass, money)
 
 
 #################################################
@@ -97,7 +99,23 @@ def alco_m(alco_dictio):
 	return alco
 
 #################################################
-def alco_p(alco_mass, info_dictio, mass):
+def money_f(alco_dictio, info_dictio):
+	if  info_dictio['drinking_place'] == 0:
+		x = 1
+	elif info_dictio['drinking_place'] == 1:
+		x = 1.5
+	elif info_dictio['drinking_place'] == 2:
+		x = 4
+	beer_money = x*3*alco_dictio['beer_q']/500
+	wine_money = x*12*alco_dictio['wine_q']/700
+	wodka_money = x*20*alco_dictio['wodka_q']/500
+	other_money = x*15*alco_dictio['other_q']/500
+	fine_money = info_dictio['fine']
+	money = beer_money + wine_money + wodka_money + other_money + fine_money
+	return money
+
+#################################################
+def alco_p(alco_mass, info_dictio, mass, money):
 	promile = 0.0
 	drink_time = 0.25
 	full_time = 0.25
@@ -119,7 +137,9 @@ def alco_p(alco_mass, info_dictio, mass):
 			max_promile = promile
 		if promile < 0:
 			promile = 0
-
+	
+	message = QtGui.QMessageBox()
+	message.exec_()
 #################################################
 def drink_t(info_dictio):
 	drink_time = info_dictio['drinking_time'] + 0.5 + info_dictio['stomach']
