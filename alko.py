@@ -12,13 +12,25 @@ def validate(value):
 	else:
 		return QtCore.QString(value)
 
+#################################################
 def promile(ui):
+	info_dictio=promile_info(ui)
+	alco_dictio=promile_alco(ui)
+
+#################################################
+def promile_info(ui):
 	sex = ui.plec_wybor.currentIndex()
 	height = ui.wzrost.value()
 	weight = ui.masa.value()
-	drinking_time = ui.czas_picia.value()
+	d_time = ui.czas_picia.value()
 	stomach = ui.zoladek_picie.currentIndex()
-	drinking_place = ui.gdzie_box.currentIndex()
+	d_place = ui.gdzie_box.currentIndex()
+	fine = ui.mandat_box.value()
+	info_dictio = {'sex':sex, 'height':height, 'weight':weight, 'drinking_time': d_time, 'stomach': stomach, 'drinking_place': d_place, 'fine': fine}
+	return info_dictio
+
+#################################################	
+def promile_alco(ui):
 	try:	
 		beer_a = float(ui.piwo_procent.text())
 	except:
@@ -39,5 +51,11 @@ def promile(ui):
 	except:
 		other_a = 0.0
 		ui.inne_procent.setText("0")
-	fine = ui.mandat_box.value()
-	
+	beer_q = float(ui.Piwo_ilosc.text())
+	wine_q = float(ui.Wino_ilosc.text())
+	wodka_q = float(ui.Wodka_ilosc.text())
+	other_q = float(ui.Inne_ilosc.text())
+		
+	alco_dictio = {'beer_q': beer_q, 'beer_a': beer_a, 'wine_q': wine_q, 'wine_a': wine_a, 'wodka_q': wodka_q, 'wodka_a': wodka_a, 
+'other_q': other_q, 'other_a': other_a}
+	return alco_dictio
