@@ -22,8 +22,7 @@ class MyDialog(QtGui.QMainWindow):
 		self.ui.Wino_ilosc.setText(wino_li)
 		self.ui.Wodka_ilosc.setText(wodka_li)
 		self.ui.Inne_ilosc.setText(inne_li)
-		#print self.ui.plec_wybor.currentIndex()
-		#print self.ui.czas_picia.value()
+		alko.promile(self.ui)
 
 
 if __name__ == "__main__":
