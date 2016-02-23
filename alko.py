@@ -67,10 +67,12 @@ def promile_alco(ui):
 #################################################
 def promile_man(info_dictio, alco_dictio):
 	mass=fluid_mass(0.7,0.9, info_dictio)
+	alco_mass = alco_m(alco_dictio)
 
 #################################################
 def promile_woman(info_dictio, alco_dictio):
 	mass=fluid_mass(0.6,0.85, info_dictio)
+	alco_mass = alco_m(alco_dictio)
 
 #################################################
 def fluid_mass(x,y, info_dictio):
@@ -80,3 +82,13 @@ def fluid_mass(x,y, info_dictio):
 	else:
 		fluid = x*ideal - 0.2*(info_dictio['weight'] - ideal)
 	return fluid
+
+#################################################
+def alco_m(alco_dictio):
+	beer_alco = alco_dictio['beer_a']*alco_dictio['beer_q']/100
+	wine_alco = alco_dictio['wine_a']*alco_dictio['wine_q']/100
+	wodka_alco = alco_dictio['wodka_a']*alco_dictio['wodka_q']/100
+	other_alco = alco_dictio['other_a']*alco_dictio['other_q']/100
+	alco = beer_alco + wine_alco + wodka_alco + other_alco
+	alco *= 0.789
+	return alco
