@@ -67,12 +67,10 @@ def promile_alco(ui):
 #################################################
 def promile_man(info_dictio, alco_dictio):
 	mass=fluid_mass(0.7,0.9, info_dictio)
-	print mass
 
 #################################################
 def promile_woman(info_dictio, alco_dictio):
 	mass=fluid_mass(0.6,0.85, info_dictio)
-	print mass
 
 #################################################
 def fluid_mass(x,y, info_dictio):
