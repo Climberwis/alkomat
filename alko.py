@@ -99,7 +99,6 @@ def alco_m(alco_dictio):
 #################################################
 def alco_t(alco_mass, info_dictio):
 	dalco_dtime_drink = alco_mass/(60*drink_t(info_dictio))
-	print dalco_dtime_drink
 	return dalco_dtime_drink
 
 #################################################
