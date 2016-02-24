@@ -3,15 +3,18 @@
 import sys
 from PyQt4 import QtCore, QtGui
 def validate(value):
-	if len(value)==0:
-		value=0
-		return QtCore.QString.number(value)
-	float_value=float(value)
-	if float_value<0:
-		value=0
-		return QtCore.QString.number(value)
-	else:
-		return QtCore.QString(value)
+	try:
+		if len(value)==0:
+			value=0
+			return QtCore.QString.number(value)
+		float_value=float(value)
+		if float_value<0:
+			value=0
+			return QtCore.QString.number(value)
+		else:
+			return QtCore.QString(value)
+	except:
+		return QtCore.QString("0")
 
 #################################################
 def promile(ui):
