@@ -160,7 +160,7 @@ def alco_p(alco_mass, info_dictio, mass, money):
 
 #################################################
 def message_box(max_promile, money, full_time, alco_mass, time):
-	workin_day = (160*money/3100)/24
+	workin_day = (160*money/3100)/8
 	message = QtGui.QMessageBox()
 	detailed_string = 'Spożyłeś '  + str("%.2f" % round(alco_mass,2)) + ' g czystego alkoholu.\n'
 	detailed_string += 'Będziesz trzeźwieć ' + str(full_time) + ' godzin od zakończenia picia.\n' 

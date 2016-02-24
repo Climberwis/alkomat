@@ -1,13 +1,15 @@
 #!/bin/bash
+dir="$(dirname $0)"
+
 cat ./help.sh > /dev/null 2>&1
 czy_help=$?
 if [[ ($czy_help -eq 0) ]]; then
-	chmod +x help.sh
+	chmod +x $dir/help.sh
 fi
 
 while getopts ":h :v" opt ; do
 case $opt in
-h) 	./help.sh
+h) 	$dir/help.sh
 	exit 0
 	;;
 v) 	printf "Alkomat v 1.0.0\n"
@@ -20,7 +22,7 @@ exit 1
 esac
 done
 
-dir="$(dirname $0)"
+
 
 i=0
 cat $dir/alkomat.py > /dev/null 2>&1
